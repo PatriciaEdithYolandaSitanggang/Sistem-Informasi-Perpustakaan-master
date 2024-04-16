@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Cetak Data Buku Perbulan</title>
+        <title>Cetak Data Peminjaman Buku Perbulan</title>
         <link href="../Assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body onload="print()">
@@ -47,19 +47,19 @@
                         <h2>Sistem Informasi Perpustakaan Zahira Kisaran </h2>
                         <h4>Jalan Ranti, Kisaran <br> Kisaran Timur, Kabupaten Asahan, Sumatera Utara, 21223</h4>
                         <hr>
-                        <h3>DATA BUKU BULAN <? echo "$bulanNama $ambilthn"; ?></h3>
+                        <h3>DATA PEMINJAMAN BUKU BULAN <? echo "$bulanNama $ambilthn"; ?></h3>
                         <table class="table table-bordered table-striped table-hover">
                         <tbody>
                                 <thead>
 								<tr>
-									 <th>No.</th><th width="17%"><center>Judul Buku</th><th><center>Nama Pengarang</th><th><center>Penerbit</th><th><center>Tahun Terbit</th><th width="10%"><center>Loker Buku</th><th width="14%"><center>Nomor <br> (Rak-Laci-Boks)</center></th><th><center>Penerima Buku</th>
+									<th>No.</th><th width="17%"><center>Judul Buku</th><th width="10%"><center>Peminjam</th><th width="14%"><center>Tanggal Pinjam</center></th><th><center>Tanggal Kembali</th><th><center>Lama Pinjam</th>
 								</tr>
 								</thead>
-						<tbody>
+							<tbody>
                             <!--ambil data dari database, dan tampilkan kedalam tabel-->
                             <?php
                             //buat sql untuk tampilan data, gunakan kata kunci select
-                            $sql = "SELECT * FROM buku WHERE substr(tahun_terbit,1,7)='$ambilthn-$ambilbln'";
+                            $sql = "SELECT * FROM peminjaman WHERE substr(tgl_pinjam,1,7)='$ambilthn-$ambilbln'";
                             $query = mysqli_query($koneksi, $sql) or die("SQL Anda Salah");
                             //Baca hasil query dari databse, gunakan perulangan untuk
                             //Menampilkan data lebh dari satu. disini akan digunakan
@@ -72,14 +72,11 @@
                                 ?>
                                 <tr>
                                     <td><?= $nomor ?></td>
-                                    <td><?= $data['judul_buku'] ?></td>
-                                    <td><?= $data['nama_pengarang'] ?></td>
-                                    <td><?= $data['penerbit'] ?></td>
-                                    <td><?= $data['tahun_terbit'] ?></td>
-                                    <td><?= $data['loker_buku'] ?></td>
-                                    <td><?= $data['no_rak'] ?> - <?= $data['no_laci'] ?> - <?= $data['no_boks'] ?></td>
-                                    <td><?= $data['penerima'] ?></td>
-                                    <td>
+									<td><?= $data['judul_buku'] ?></td>
+                                    <td><?= $data['peminjam'] ?></td>
+                                    <td><?= $data['tgl_pinjam'] ?></td>
+                                    <td><?= $data['tgl_kembali'] ?></td>
+									<td><?= $data['lama_pinjam'] ?></td>
                                 </tr>
                                 <!--Tutup Perulangan data-->
                             <?php } ?>
@@ -93,7 +90,7 @@
                                         <br><br><br><br>
                                         <u>Kepala Perpustakaan<strong></u><br>
                                         +62 822 7277 7466
-									             </td>
+								</td>
 								</tr>
 							</tfoot>
                         </table>
